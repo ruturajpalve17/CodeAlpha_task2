@@ -1,0 +1,37 @@
+portfolio = {}
+
+def add_stock(symbol, shares, price):
+    if symbol in portfolio:
+        portfolio[symbol]['shares'] += shares
+        portfolio[symbol]['price'] = price
+    else:
+        portfolio[symbol] = {'shares': shares, 'price': price}
+
+def remove_stock(symbol):
+    if symbol in portfolio:
+        del portfolio[symbol]
+
+def view_portfolio():
+    total_value = 0
+    print("Portfolio:")
+    for symbol, data in portfolio.items():
+        value = data['shares'] * data['price']
+        total_value += value
+        print(f"{symbol}: {data['shares']} shares @ ${data['price']} = ${value:.2f}")
+    print(f"Total Portfolio Value: ${total_value:.2f}")
+
+while True:
+    print("\n1. Add Stock\n2. Remove Stock\n3. View Portfolio\n4. Exit")
+    choice = input("Enter choice: ")
+    if choice == '1':
+        s = input("Stock symbol: ").upper()
+        sh = int(input("Number of shares: "))
+        p = float(input("Price per share: "))
+        add_stock(s, sh, p)
+    elif choice == '2':
+        s = input("Stock symbol to remove: ").upper()
+        remove_stock(s)
+    elif choice == '3':
+        view_portfolio()
+    elif choice == '4':
+        break
